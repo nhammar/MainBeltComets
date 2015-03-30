@@ -46,7 +46,7 @@ Since the first discovery of an active main-belt asteroid, 133P/Elst-Pizarro, se
 
 
 % WHAT IS NEW, BETTER, DIFFERENT ABOUT OSSOS???
-New objects may be able to be identified from the Outer Solar System Origins Survey (OSSOS) which was designed to detect trans neptunian objects, and has a low limiting magnitude of 24.5 mag. The survey covers a wide field of both the ecliptic plane and low inclinations, and observes with long ($>$ 287 s) exposures, allowing for the potential serendipitous discovery of active dust emission which was previously too faint to detect.
+Previously undetectable emission activity may be able to be identified from the Outer Solar System Origins Survey (OSSOS) which was designed to detect trans neptunian objects, and has a low limiting magnitude of 24.5 mag. The survey covers a wide field of both the ecliptic plane and low inclinations, and observes with long ($>$ 287 s) exposures, allowing for the potential serendipitous discovery of active dust emission which was previously too faint to detect. In this study we intend to observe numbered asteroids in the OSSOS data set and identify potential activity by measuring the point spread function (PSF).
 
 % area search is attempted to be few stars
 
@@ -58,17 +58,26 @@ Observations taken by OSSOS with the Canada-France-Hawaii telescope (CFHT) MegaP
 The OSSOS images are reduced ... \todo{how reduced}. (standard data detrending???) Source characteristic measurements were obtained from source extraction \todo{citep(sep)} and were used to extract the orbital information the transient object. 
 
 
-As the identified active asteroids do not share a specific phase space the analysis was not constrained to just the main belt or plane of the ecliptic, but for all known objects with heliocentric distances beyond the inner belt (a \textgreater \, 2.064 AU), inclinations below 40$^{\circ}$, and eccentricity less than 0.45. 
+%As the identified active asteroids do not share a specific phase space the analysis was not constrained to just the main belt or plane of the ecliptic, but for all known objects with heliocentric distances beyond the inner belt (a \textgreater \, 2.064 AU), inclinations below 40$^{\circ}$, and eccentricity less than 0.45. 
 % to detect objects in the main asteroid belt, objects with semimajor axis 2.064 < a < 3.277 AU, e < 0.45, i < 40 deg
 % PSF detections
 % cuts, identifying process
 
-\section{Identification}
+\section{Analysis}
 
 \todo{rewrite with proper good english}
-We analyze as set of 3528 images with exposure times \textgreater \, 200s, with (\todo{fill in}) observations of (\todo{fill in}) established main-belt objects from the OSSOS survey telescope. 
+We analyze as set of 3528 images with exposure times greater than 200s, with (\todo{fill in}) observations of (\todo{fill in}) established main-belt objects from the OSSOS survey telescope. 
 
-The asteroid was identified by it's location relative to the predicted coordinates,  ellipticity due to trailing,  magnitude, and it's point spread function. Images with the object being involved with other objects discarded. 
+An automated pipeline was written to identify each asteroid in an OSSOS exposure by, in order of 'priority', it's location relative to the predicted coordinates,  elongation due to trailing effects, and apparent magnitude. The elongation condition was calculated from the predicted motion of the asteroid over the length of the exposure, and approximated as an ellipse which could be compared to the shape parameters calculated by the photometry. Asteroids which were not the expected shape, but satisfied the coordinate and magnitude condition were flagged for human inspection. Cases of the asteroid being too close to bad pixels, the edge of the CCD, or involved with bright sources would be removed at this step of the pipeline. For exposures where the elongation ratio was greater than 1:5 ***** the photometry measured the asteroid as two separate sources, and the image was flagged for human inspection. If more than one source met the same level of criteria but the object was not expected to be greatly elongated, the image was flagged separately for review.
+
+In order to accurately measure the PSF of the asteroid, which is necessary to check for anomalous flux surrounding the object that could indicate activity, it is necessary to ensure that the asteroid is isolated from other sources. From a comparison with a catalogue of bright sources built for the OSSOS images \citep{ossos}, the cases where the asteroid was involved could be discarded.
+
+To ensure that no asteroid could not be accounted for in the pipeline process, exposures where no source was found by the photometry in the region surrounding the predicted location of the asteroid, no objects met the elongation nor magnitude conditions, and images which failed to be processed by the photometry were also recorded to be reprocessed.
+
+Additional work was done to compare the observed light curves with the Asteroid Lightcurve Database (LCDB, \citep{warner08})
+
+To calculate the PSF of the asteroid, the image was rotated to align the elongation to the horizontal axis, and for a small segment of 2.5 *** times the full-width-half-maximum (FWHM) the flux was summed for each row. The flux was then plotted as a function of position across the image and fitted to a Gaussian/Moffat function. The same processes was followed for a mean PSF of bright stars in the same exposure built from the OSSOS MOP pipeline \citep{ossos}. The fitted functions were then compared to check for a greater than 2 sigma **** deviation in the wings of the PSF. Due to saturation effects along the core of the asteroid, and the requirement of the rotation of the image before reading out the flux, asteroids with a lower magnitude than 18.5 mag were excluded. 
+
 
 
 
@@ -79,33 +88,34 @@ The asteroid was identified by it's location relative to the predicted coordinat
 \bibliographystyle{plainnat}
 \bibliography{mbc_paper}
 
+% to be updated when the new get_iamges for all objects in families has been completed
 \begin{figure}[!htb]
     \centering
-    \includegraphics[height=4cm]{i_a.png}
+    \includegraphics[height=9cm]{graphs/aa_comets_mba_all.png}
     \caption{Inclination of all known objects in the main asteroid belt as a function of semimajor axis.  Mean motion resonances between Mars and Jupiter as well as the planet's semimajor axis are marked in dashed lines, main belt objects are marked as light small dots, comets as arrows, and active asteroids as stars. \cite{mpc}}\label{fig:1}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[height=7cm]{a_e_i_occur.png}
+    \includegraphics[height=7cm]{graphs/a_e_i_occur.png}
     \caption{Inclination and eccentricity as a function of semi-major axis of all objects. Colours represents number of observations (occurrences) used in the analysis}\label{fig:2}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[height=4cm]{occur_a.png}
+    \includegraphics[height=4cm]{graphs/occur_a.png}
     \caption{Occurrence of object in analysis data as a function of semimajor axis. }\label{fig:3}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[height=4cm]{occur_e.png}
+    \includegraphics[height=4cm]{graphs/occur_e.png}
     \caption{Occurrence of object in analysis data as a function of eccentricity. }\label{fig:4}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[height=4cm]{occur_i.png}
+    \includegraphics[height=4cm]{graphs/occur_i.png}
     \caption{Occurrence of object in analysis data as a function of inclination. }\label{fig:5}
 \end{figure}
 
