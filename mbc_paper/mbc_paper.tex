@@ -66,19 +66,23 @@ The OSSOS images are reduced ... \todo{how reduced}. (standard data detrending??
 \section{Analysis}
 
 \todo{rewrite with proper good english}
-We analyze as set of 3528 images with exposure times greater than 200s, with (\todo{fill in}) observations of (\todo{fill in}) established main-belt objects from the OSSOS survey telescope. 
+We analyze as set of 3528 images with exposure times greater than 200s, with (\todo{fill in}) observations of (\todo{fill in}) established main-belt objects from the OSSOS survey. This study exclusively worked with known objects as they could easily be identified in each exposure from the asteroids predicted arc and observables. Additionally, from the coordinates that we calculate the asteroid to be at, we can refine the objects arc. 
 
-An automated pipeline was written to identify each asteroid in an OSSOS exposure by, in order of 'priority', it's location relative to the predicted coordinates,  elongation due to trailing effects, and apparent magnitude. The elongation condition was calculated from the predicted motion of the asteroid over the length of the exposure, and approximated as an ellipse which could be compared to the shape parameters calculated by the photometry. Asteroids which were not the expected shape, but satisfied the coordinate and magnitude condition were flagged for human inspection. Cases of the asteroid being too close to bad pixels, the edge of the CCD, or involved with bright sources would be removed at this step of the pipeline. For exposures where the elongation ratio was greater than 1:5 ***** the photometry measured the asteroid as two separate sources, and the image was flagged for human inspection. If more than one source met the same level of criteria but the object was not expected to be greatly elongated, the image was flagged separately for review.
+An automated pipeline was written to identify each asteroid in an OSSOS exposure by, in order of 'priority': it's location relative to the predicted coordinates,  elongation due to trailing effects, and apparent magnitude. The elongation condition was calculated from the predicted motion of the asteroid over the length of the exposure, and approximated as an ellipse which could be compared to the shape parameters calculated by the photometry. Asteroids which were not the expected shape, but satisfied the coordinate and magnitude condition were flagged for human inspection. Cases of the asteroid being too close to bad pixels, the edge of the CCD, or involved with bright sources would be removed at this step of the pipeline. For exposures where the elongation ratio was greater than 1:5 ***** the photometry measured the asteroid as two separate sources, and the image was flagged for human inspection. If more than one source met the same level of criteria but the object was not expected to be greatly elongated, the image was flagged separately for review.
 
 In order to accurately measure the PSF of the asteroid, which is necessary to check for anomalous flux surrounding the object that could indicate activity, it is necessary to ensure that the asteroid is isolated from other sources. From a comparison with a catalogue of bright sources built for the OSSOS images \citep{ossos}, the cases where the asteroid was involved could be discarded.
 
 To ensure that no asteroid could not be accounted for in the pipeline process, exposures where no source was found by the photometry in the region surrounding the predicted location of the asteroid, no objects met the elongation nor magnitude conditions, and images which failed to be processed by the photometry were also recorded to be reprocessed.
 
-Additional work was done to compare the observed light curves with the Asteroid Lightcurve Database (LCDB, \citep{warner08})
+% Additional work was done to compare the observed light curves with the Asteroid Lightcurve Database (LCDB, \citep{warner08})
 
-To calculate the PSF of the asteroid, the image was rotated to align the elongation to the horizontal axis, and for a small segment of 2.5 *** times the full-width-half-maximum (FWHM) the flux was summed for each row. The flux was then plotted as a function of position across the image and fitted to a Gaussian/Moffat function. The same processes was followed for a mean PSF of bright stars in the same exposure built from the OSSOS MOP pipeline \citep{ossos}. The fitted functions were then compared to check for a greater than 2 sigma **** deviation in the wings of the PSF. Due to saturation effects along the core of the asteroid, and the requirement of the rotation of the image before reading out the flux, asteroids with a lower magnitude than 18.5 mag were excluded. 
+To calculate the PSF of the asteroid, the image was rotated to align the elongation to the horizontal axis, and for a small segment of 2.5 *** times the full-width-half-maximum (FWHM) the flux was summed for each row. The flux was then plotted as a function of position across the image and fitted to a Gaussian/Moffat function. The same processes was followed for a mean PSF of bright stars in the same exposure built from the OSSOS MOP pipeline \citep{ossos}. The fitted functions were then compared to check for a greater than 2 sigma **** deviation in the wings of the PSF. Due to saturation effects along the core of the asteroid, and the requirement of the rotation of the image before reading out the flux, asteroids with a lower magnitude than 18.5 mag were excluded as the PSF could not be accurately calculated. 
 
 
+
+\section{Discussion}
+
+As the involvement check was preformed using a catalogue of bright objects, it is possible that some asteroids identified and carried through the pipeline process were involved with dim background objects. An example of this is shown in figure 3. Depending on the geometry of the involvement this could be selected as an asteroid with activity, possibly a large bright jet. In order to distinguish between activity and involvement, the asteroids with unusual PSF's were all manually reviewed. Through this process we could determine whether a jet was present, in which case the outflowing dust would also have a trailing effect through the exposure, or if it were a case of involvement. We do not expect that a jet would be present for a fraction of the exposure time during one observation. 
 
 
 \acknowledgments{
@@ -103,21 +107,10 @@ To calculate the PSF of the asteroid, the image was rotated to align the elongat
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[height=4cm]{graphs/occur_a.png}
-    \caption{Occurrence of object in analysis data as a function of semimajor axis. }\label{fig:3}
+    \includegraphics[height=4cm]{images/background_gal.jpeg}
+    \caption{An asteroid involved with a dim background object. }\label{fig:3}
 \end{figure}
 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[height=4cm]{graphs/occur_e.png}
-    \caption{Occurrence of object in analysis data as a function of eccentricity. }\label{fig:4}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[height=4cm]{graphs/occur_i.png}
-    \caption{Occurrence of object in analysis data as a function of inclination. }\label{fig:5}
-\end{figure}
 
 \end{document}
 
