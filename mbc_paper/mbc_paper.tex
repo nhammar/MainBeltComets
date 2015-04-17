@@ -64,40 +64,43 @@ From the calculated arcs provided by SSOIS \citep{ssois} of main belt objects in
 
 \subsection{Object identification}
 
-An automated pipeline was written to identify each asteroid in an OSSOS exposure by: it's location relative to the predicted coordinates,  elongation due to trailing effects caused by the apparent rate of motion over the duration of the exposure, and apparent magnitude. 
+An automated pipeline was written to identify each asteroid in an OSSOS exposure by: location relative to the predicted coordinates,  elongation due to trailing effects caused by the apparent rate of motion over the duration of the exposure, and apparent magnitude. 
 
-The coordinates of each object in the exposure were obtained from the photometric software \citep{sep}, and objects which were closest to the predicted location (at the midpoint of the exposure) as calculated by known arc \citep{jpl} [todo: is this citation necessary?] were chosen as candidate objects. If no objects were detected within a set radius calculated from the uncertainty in the asteroid arc, the radius was increased by a factor of 1.5.
+The coordinates of each object in the exposure were obtained from the photometric software \citep{sep}, and objects which were closest to the predicted location (at the midpoint of the exposure) as calculated by known arc \citep{jpl} [todo: is this citation necessary?] were chosen as candidate objects. If no objects were detected within a set radius calculated from the uncertainty in the asteroid arc, the radius was increased by a factor of 1.5 and the search was repeated.
 
-The expected elongation of the trail was calculated from the predicted motion of the asteroid over the length of the exposure \citep{jpl} under the assumption of constant motion. This value was then compared to the elliptical shape parameters measued by the photometry of each candidate object. 
-A difficulty in this process is that objects which are moving faster during the exposure, and thus trailed to a greater extent, will not be elliptical in shape. As the photometry is optimized for point sources and extended sources such as galaxies, the accuracy of the shape parameters, and thus the astrometry, is correlated to the extent of the elongation. For this reason we implement an error of 20 percent on the measurement of the semi-major and semi-minor axis of the elliptical shape parameters reported by the photometry. 
+The expected elongation of the trail was calculated from the predicted motion of the asteroid over the length of the exposure \citep{jpl} under the assumption of constant motion. This value was then compared to the elliptical shape parameters measured by the photometry for each candidate object. 
+A difficulty in this process is that objects which are moving faster during the exposure, and thus trailed to a greater extent, will be less elliptical in shape. As the photometry is optimized for point sources and extended sources such as galaxies, the accuracy of the shape parameters is correlated to the extent of the elongation. For this reason we implement an error of 20 percent on the measurement of the semi-major and semi-minor axis reported by the photometry. [to do: be more specific about why 20?] For objects which appear very elongated, typically spanning 30 pixels end-to-end, the photometry incorrectly resolves the asteroid as two separate objects. In this case both objects would meet all the criteria conditions. In order to not pass such objects through the pipeline, if multiple objects met all the conditions, the objects were removed from the pipeline and flagged for review.
 
 The inability of the photometry software to correctly measure the shape of the asteroid trail will also have an effect on the measured flux as the aperture may not include the total amount of light. As the centre of the object is determined by the flux weighted barycenter of the object, this may also result in an inaccurate measurement of the astrometry. In order to avoid this error, the centre coordinates of the object were chosen as the centre of the elliptical aperture for fast-moving objects. 
-In addition, the elongation effect in itself may effect the accuracy of the flux measurement without taking into account the potential loss of light. This is a result of the flux being spread over a larger area than the point spread function (PSF), which reduces the per unit area apparent magnitude and the signal-to-noise \citep{veres12}. A direct consequence is a lowered limiting magnitude for fast moving asteroids. 
-A third consideration is that objects which are active and have jets or a coma will appear brighter than the expected magnitude calculated from previous observations. Depending on the extent of the activity, this could cause the object to be measured as several magnitudes greater than predicted. For this reason we did not exclude objects which were bright than expected.  
-Therefore, in subjecting the candidate object to a consistency check with the predicted value, we used an uncertainty of at least 2 magnitudes, and did not reject the object if it was inconsistent. Instead we maintained a record of which object passed which consistency checks with the intent of reviewing visually those that passed further tests based on their accuracy with respect to the expected values. 
- 
-An candidate object which did not meet any of the criteria mentioned about would be rejected. This would include objects which were involved with or too close to bad pixels or cosmic rays, on the edge of the CCD, in a diffraction ring of a nearby bright star, or that could not be accurately measured by the photometry software.
+In addition, the elongation effect in itself may affect the accuracy of the flux measurement without taking into account the potential loss of light. This is a result of the flux being spread over a larger area than the point spread function (PSF), which reduces the per unit area apparent magnitude and the signal-to-noise \citep{veres12}. A direct consequence is a lowered limiting magnitude for fast moving asteroids. 
+A third consideration is that objects which are active and have jets or a coma will appear brighter than the expected magnitude calculated from previous observations. Depending on the extent of the activity, this could cause the object to be measured as several magnitudes greater than predicted. For this reason we did not exclude objects which were brighter than expected.  
+For these reasons, in subjecting the candidate object to a consistency check with the predicted value we used an uncertainty of at least 2 magnitudes, and did not reject the object if it was inconsistent.
 
-In order to accurately measure the PSF of the asteroid -- which is necessary to check for anomalous flux surrounding the object that could indicate activity -- it is necessary to ensure that the asteroid is isolated from other sources. This involvement check was preformed with a comparison of a catalogue of bright sources built for the OSSOS images \citep{ossos} in the region surrounding the asteroid, and the cases where the asteroid was involved were rejected.
+In order to accurately measure the PSF of the asteroid -- which is necessary to check for anomalous flux surrounding the object that could indicate activity -- it is necessary to ensure that the asteroid is isolated from other sources. In order to reject asteroids which were involved with background objects, the coordinates of the object were compared to a catalogue of bright sources built for the OSSOS data set. This will not, however, detect if the asteroid is involved with a faint background source nor a transient object such as a cosmic ray. It is possible that the involvement would cause the object to be rejected based on the measured elongation or shape. 
+
+A candidate object which did not meet any of the criteria mentioned above would be rejected. This would include objects which were involved with or too close to bad pixels or cosmic rays, on the edge of the CCD, in a diffraction ring of a nearby bright star (but far enough spatially to not be rejected as involved), or that could not be accurately measured by the photometry software.
 
 Applying this identification process left 49 exposures of 19 asteroids to be examined.
 
 \begin{table}[htdp]
-\caption{caption goes here}
+\caption{Rejection cause for images through identification pipeline}
 \begin{center}
 \begin{tabular}{lc}
-	\textbf{Rejection cause}								& 	\textbf{\# images} \\
+	Total number of images						&	76 \\
+	\hline
+	\textbf{Rejection cause}						& 	\textbf{\# images} \\
 	\hline
 	Involved with background stars                                     	& 	1			\\
-	Incorrectly resolved as two objects					& 	5			\\
-	Did not meet elongation or magnitude criteria			& 	2			\\
-	Incorrectly measured by the photometry				& 	5			\\
+	Incorrectly resolved as two objects				& 	5			\\
+	Did not meet elongation or magnitude criteria		& 	2			\\
+	Incorrectly measured by the photometry			& 	5			\\
 	Could not be processed by the photometry software	& 	6			\\
-	Off the edge of the CCD								& 	5			\\
-	In saturated region of nearby bright star				& 	2			\\
+	Off the edge of the CCD						& 	5			\\
+	In saturated region of nearby bright star			& 	2			\\
 	Could not be resolved from the background 			&	1			\\
+	Bad exposure								&	0	\\
 	\hline
-	Retained											& 49       
+	Retained									& 	49       
 \end{tabular}
 \end{center}
 \label{default}
@@ -105,13 +108,21 @@ Applying this identification process left 49 exposures of 19 asteroids to be exa
 
 \subsection{PSF comparison}
 
-A postage stamp of size 2.5 times the full-width-half-maximum (FWHM) and centred on the midpoint of the elongated shape was rotated such that asteroid trail was aligned parallel to the pixel rows on the CCD chip. The asteroid profile was averaged over the entire length of the postage stamp. The stellar model PSF was built from the OSSOS MOP at the location of the asteroid on the CCD to account for any distortion, and rotated by the same angle.  The profile was measured as the average over the width of the model star. A 3 sigma difference between the subtracted profiles was used to indicate the presence of additional flux around an asteroid, characteristic of a cometary comae. There were [fill in] asteroids which were measured to be above this limit and were flagged for visual confirmation. Due to saturation effects, asteroids with magnitudes greater than 18.5 were not analyzed for activity. However, as previous surveys have included this set of objects \citep{hsieh15} we were comfortable with this exclusion.
+A postage stamp of size 2.5 times the full-width-half-maximum (FWHM) and centred on the midpoint of the elongated shape was rotated such that asteroid trail was aligned parallel to the pixel rows on the CCD chip. The asteroid profile was averaged over the entire length of the postage stamp. The stellar model PSF was built from the OSSOS MOP at the location of and with the same magnitude as the asteroid on the CCD to account for any distortion, and rotated by the same angle.  The profile was measured as the average over the width of the model star. A 3 sigma difference between the subtracted profiles was used to indicate the presence of additional flux around an asteroid, characteristic of a cometary comae. There were [fill in] asteroids which were measured to be above this limit and were flagged for visual confirmation. Due to saturation effects, asteroids with magnitudes greater than 18.5 were not analyzed for activity. However, as previous surveys have included this set of objects \citep{hsieh15} we were comfortable with this exclusion.
 
 \subsection{Detection Efficiency}
 
 How well do we identify coma vs jets vs tails ? How may do we detect vs observed? What are the statistics? Why are the results so bad?
 
 \section{Discussion}
+
+\section{Photometry errors}
+
+
+
+All objects which were successfully identified passed the elongation condition
+How many objects were `very' elongated?
+
 
 As the involvement check was preformed using a catalogue of bright objects, it is possible that some asteroids identified and carried through the pipeline process were involved with dim background objects. An example of this is shown in figure 3. Depending on the geometry of the involvement this could be selected as an asteroid with activity, possibly a large bright jet. In order to distinguish between activity and involvement, the asteroids with unusual PSF's were all manually reviewed. Through this process we could determine whether a jet was present, in which case the outflowing dust would also have a trailing effect through the exposure, or if it were a case of involvement. We do not expect that a jet would be present for a fraction of the exposure time during one observation. 
 
