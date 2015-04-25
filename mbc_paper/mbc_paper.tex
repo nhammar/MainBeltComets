@@ -39,11 +39,14 @@ For objects which formed in the the outer region of the main belt, the crystalli
 
 Since the first discovery of an active main-belt asteroid, 133P/Elst-Pizarro \citep{elst96}, several attempts have been made to identify new objects of this type; at present, eighteen objects have been identified with diverse orbital dynamics [todo: WC?] (Figure 1) [todo: check figure reference] \citep{jewitt15}. A comprehensive review of these surveys can be found in \citet{hsieh15}.  A persistent challenge to this effort is that the detection of the faint coma or tails around small dark objects is highly dependent on the magnitude constraints of the survey. As most asteroids fall near the limiting magnitude of the survey in which they are discovered [todo: citation necessary?], objects which are larger, closer, or have higher albedo are preferentially detected and any dust emission would be more easily apparent. At present, the active fraction of identified active asteroids greater than 1 km to main belt asteroids greater than 1 km is $f \, \sim \, 10^5$, and describes a strong lower limit as many objects are yet undetected. \citep{jewitt15} %From a study of 30,000 objects observed near perihelion, \cite{} Hsieh et all (2015) concluded that $f \, \sim \, 10^4$ for asteroids which are active at any instant in the outer belt.
 
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/aa_comets_mba_all.png}
+    \caption{Inclination of all objects in the main asteroid belt from the AstDys catalogue as a function of semimajor axis.  Mean motion resonances between Mars and Jupiter as well as the planet's semimajor axis are marked in dashed lines, main belt objects are marked as light small dots, comets as arrows, and active asteroids as stars.}\label{fig:1}
+\end{figure}
+
 In this paper, we present a study of main belt objects present in the Canada-France-Hawaii Telescope (CFHT) Outer Solar System Origins Survey (OSSOS) data to identify the presence of cometary-like activity. Previously undetectable emission activity may be able to be identified in the OSSOS survey, which has a limiting magnitude much lower than previous surveys \citep{hsieh15} [todo: check that magnitudes listed in this paper]. We select the Hungaria family as the test group for our search pipeline. Potential activity is identified by measuring the asteroids brightness profile and comparing this to a stellar model profile of the same magnitude in order to detect a large deviation in width potentially characteristic of a coma or jet. Asteroids which have residuals larger than a 3 sigma deviation are subjected to visual examination. This is similar to the process employed by \cite{luu92}, \cite{sonnett11}, and \cite{gilbert09}.
 [todo: Include Lixiaohua family]
-
-% From the results of both methods we compute upper limits for the expected number of active asteroids.
-
 
 \section{Observations}
 
@@ -51,13 +54,20 @@ Observations taken by OSSOS with the CFHT MegaPrime wide-field optical imaging f
 
 The OSSOS images were pre-processed by standard data detrending with the MegaPipe image stacking pipeline [todo: check if this is correct]. An astrometric correction was applied by [todo: sgwyn, check if there is a reference]. Source characteristic measurements were obtained from Source Extraction and Photometry in Python (SEP) and were used to extract the orbital information the transient objects. 
 
-The survey covers a wide field of both the ecliptic plane and low inclinations allowing for the observation of a large number of main belt objects in different orbital phase spaces. As the observations were not targeted to specific main-belt populations, the survey is relatively unbiased, and we can put constraints on the number of AAs  in the whole of the main asteroid belt.
+The survey covers a wide field of both the ecliptic plane and low inclinations allowing for the observation of a large number of main belt objects in different orbital phase spaces. This can be seen in Figure 2. As the observations were not targeted to specific main-belt populations, the survey is relatively unbiased, and we can put constraints on the number of AAs  in the whole of the main asteroid belt. 
 
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/obs_and_hungarias_i.png}
+    \includegraphics[width=\linewidth]{graphs/obs_and_hungarias_e.png}
+    \caption{The inclination and eccentricity as a function of semi-major axis of all known objects in the main asteroid belt, objects observed by OSSOS, and the Hungaria family test group. }\label{fig:2}
+\end{figure}
 
-%As the identified active asteroids do not share a specific phase space the analysis was not constrained to just the main belt or plane of the ecliptic, but for all known objects with heliocentric distances beyond the inner belt (a \textgreater \, 2.064 AU), inclinations below 40$^{\circ}$, and eccentricity less than 0.45. 
-% to detect objects in the main asteroid belt, objects with semimajor axis 2.064 < a < 3.277 AU, e < 0.45, i < 40 deg
-% PSF detections
-% cuts, identifying process
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{graphs/occurance2.png}
+    \caption{The number of observations by OSSOS of each asteroid.}\label{fig:6}
+\end{figure}
 
 \section{Analysis}
 
@@ -72,7 +82,7 @@ An automated pipeline was written to identify each asteroid in an OSSOS exposure
 The coordinates of each object in the exposure were obtained from the photometric software SEP, and objects which were closest to the predicted location (at the midpoint of the exposure) as calculated by known arc \citep{jpl} [todo: is this citation necessary?] were chosen as candidate objects. If no objects were detected within a set radius calculated from the uncertainty in the asteroid arc, the radius was increased by a factor of 1.5 and the search was repeated.
 
 The predicted elongation of the trail was calculated from the motion of the asteroid over the length of the exposure \citep{jpl} under the assumption of constant motion. This was compared to the elliptical shape parameters measured by SEP for each candidate object. 
-A difficulty in this process is that objects which move faster during the exposure, and thus have longer trails, will be less elliptical in shape. As the photometry software is optimized for point sources and extended sources such as galaxies, the accuracy of the shape parameters to be correlated to the extent of the elongation. For this reason we implement an uncertainty of 20 percent on the elongation measure, with the expectation that only objects which are markably inconsistent would be rejected. For greatly extended trails, with a ratio of semi-major axis to semi-minor axis of 5:1, SEP incorrectly resolves the asteroid as two separate objects. In this case both objects would meet the location and magnitude conditions, pass through the same consistency level, and be flagged for visual inspection.
+A difficulty in this process is that objects which move faster during the exposure, and thus have longer trails, will be less elliptical in shape. As the photometry software is optimized for point sources and extended sources such as galaxies, the accuracy of the shape parameters to be correlated to the extent of the elongation. For this reason we implement an uncertainty of 20 percent on the elongation measure, with the expectation that only objects which are markably inconsistent would be rejected. For greatly extended trails, with a ratio of semi-major axis to semi-minor axis of 5:1, SEP incorrectly resolves the asteroid as two separate objects as the flux spread was not necessarily constant over the length. An example of such an object is shown in Figure 2 [todo: fig ref]. In this case both objects would meet the location and magnitude conditions, pass through the same consistency level, and be flagged for visual inspection.
 
 The inability of the photometry software to correctly measure the shape of the asteroid trail would also have an affect on the measured flux as the aperture may not include the total amount of light. As the centre of the object is determined by the flux weighted barycenter of the object, this may also result in an inaccurate measurement of the astrometry. In order to avoid this error, the centre coordinates of the object were chosen as the centre of the elliptical aperture for fast-moving objects. 
 In addition, the elongation effect in itself may affect the accuracy of the flux measurement without taking into account the potential loss of light. This is a result of the flux being spread over a larger area than the point spread function (PSF), which reduces the per unit area apparent magnitude and the signal-to-noise \citep{veres12}. A direct consequence is a lowered limiting magnitude for fast moving asteroids. 
@@ -109,13 +119,13 @@ Applying this identification process left 66 exposures of 21 asteroids to be exa
 	In diffraction region of nearby bright star		&	1			\\
 	% 283374	1769004p
 	% 283374 1775265p
-	Could not be resolved from the background 	&	0			\\
-	Bad image quality								&	1			\\
-	% 299121 1609292p
-	Bad exposure									& 	1			\\
+	Bad exposure									& 	4			\\
 	% 283374 1775274p
+	% 204248 1672749p  # No data in this HDU.
+	% 204248 1672750p  # No data in this HDU.
+	% 204248 1672754p
 	\hline
-	Retained										&	65
+	Retained										&	64
 \end{tabular}
 \end{center}
 \label{default}
@@ -124,22 +134,16 @@ Applying this identification process left 66 exposures of 21 asteroids to be exa
 \subsection{Rejection causes}
 
 \textit{Involved}:
-When compared with a catalogue of bright sources [todo: cite Gwynn?] the object was found to spatially coincide with a background object. As the catalogue was built from a set of exposures with good photometry, asteroids present in those exposures would be incorrectly identified as involved. [todo: can we get a list of the exposures used?] Not included in the catalogue are dim sources, transient objects, and bad pixels/columns. In the case of the asteroid being involved with such objects, the photometry software would measure the convolved sources, and the elongation and magnitude would be inconsistent with the predicted values. If the background object were dim enough that the convolved source passed the magnitude condition, the PSF would be beyond the 5 sigma deviation, and the involvement would be caught by visual inspection. An example of such a case is shown in Figure 2 [todo: reference figure].
+When compared with a catalogue of bright sources [todo: cite Gwyn?] the object was found to spatially coincide with a background object. As the catalogue was built from a set of exposures with good photometry, asteroids present in those exposures would be incorrectly identified as involved. [todo: can we get a list of the exposures used?] Not included in the catalogue are dim sources, transient objects, and bad pixels/columns. In the case of the asteroid being involved with such objects, the photometry software would measure the convolved sources, and the elongation and magnitude would be inconsistent with the predicted values. If the background object were dim enough that the convolved source passed the magnitude condition, the PSF would be beyond the 5 sigma deviation, and the involvement would be caught by visual inspection. An example of such a case is shown in Figure 2 [todo: reference figure].
 
 \textit{Not on the CCD}:
 If the SSOIS query incorrectly identified that an asteroid was on in an OSSOS exposure, but rather the object was within a few degrees off the edge of the CCD, no object would be found in the uncertainty ellipse of the predicted location.
-
-\textit{Could not be resolved from the background}:
-
 
 \textit{In saturated region of a nearby bright source}:
 For object close to, but not involved with, bright sources the asteroid may in the diffraction region of the saturated pixels. In this case no object would be found in the uncertainty ellipse around the predicted co-ordinates.
 
 \textit{Bad exposure}:
-Exposures which were marked as bad were automatically rejected. This would include tracking errors, short exposures, and corrupted images. 
-
-\textit{Poor image quality}:
-
+Exposures which were marked as bad were automatically rejected. This would include tracking errors, short exposures, poor image quality, and corrupted images. 
 
 \subsection{PSF comparison}
 
@@ -151,7 +155,13 @@ How well do we identify coma vs jets vs tails ? How may do we detect vs observed
 
 \section{Discussion}
 
-\section{Photometry errors}
+\subsection{Identification criteria}
+
+The given uncertainty of 20 percent was found to be a robust [todo: WC?] as the percent difference between the predicted and measured elongations for all objects correctly measured by SEP was under 18 percent, and with a mean of 8 percent. This was therefore a good value for only rejecting objects which were not the intended asteroid or not properly measured.
+
+Despite the expectation that the elongation would be correlated to the inaccurate measurement of the magnitude due to the spread of the flux, no statistical relationship was found between the difference of the predicted and measured magnitude and the elongation.
+
+\subsection{Photometry errors}
 
 
 
@@ -159,7 +169,13 @@ All objects which were successfully identified passed the elongation condition
 How many objects were `very' elongated?
 
 
-As the involvement check was preformed using a catalogue of bright objects, it is possible that some asteroids identified and carried through the pipeline process were involved with dim background objects. An example of this is shown in figure 3. Depending on the geometry of the involvement this could be selected as an asteroid with activity, possibly a large bright jet. In order to distinguish between activity and involvement, the asteroids with unusual PSF's were all manually reviewed. Through this process we could determine whether a jet was present, in which case the outflowing dust would also have a trailing effect through the exposure, or if it were a case of involvement. We do not expect that a jet would be present for a fraction of the exposure time during one observation. 
+As the involvement test was preformed from a catalogue of bright objects, it is possible that asteroids involved with dim background objects were not properly flagged. An example of this is shown in Figure 4. Depending on the geometry of the involvement this could be selected as an asteroid with activity, possibly with a large bright jet. The involvement would then be determined in the visual examination of all asteroids with brightness profiles with larger than a 3 sigma deviation from the background residuals [todo: WC?]. An obvious distinction between a background source and a jet is that the outflow would be trailed to the same extent of the asteroid.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.4\linewidth]{images/flux_spread.png}
+    \caption{A Fast moving asteroid trailed over the duration of the exposure with an uneven flux spread over its length. This object required visual inspection as  it was incorrectly resolved as multiple objects by SEP}\label{fig:4}
+\end{figure}
 
 \section{Recommendations }
 
@@ -174,30 +190,19 @@ Tail detection pipeline like \cite{sonnett11}
 \bibliographystyle{plainnat}
 \bibliography{mbc_paper}
 
-% to be updated when the new get_images for all objects in families has been completed
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[height=9cm]{graphs/aa_comets_mba_all.png}
-    \caption{Inclination of all known objects in the main asteroid belt as a function of semimajor axis.  Mean motion resonances between Mars and Jupiter as well as the planet's semimajor axis are marked in dashed lines, main belt objects are marked as light small dots, comets as arrows, and active asteroids as stars. \cite{mpc}}\label{fig:1}
-\end{figure}
+%\begin{figure}[!htb]
+%    \centering
+%    \includegraphics[height=9cm]{graphs/aa_comets_mba_all.png}
+%    \caption{Inclination of all objects in the main asteroid belt from the AstDys catalogue as a function of semimajor axis.  Mean motion resonances between Mars and Jupiter as well as the planet's semimajor axis are marked in dashed lines, main belt objects are marked as light small dots, comets as arrows, and active asteroids as stars.}\label{fig:1}
+%\end{figure}
+
+
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[height=4cm]{images/background_gal.jpeg}
-    \caption{An asteroid involved with a dim background object. }\label{fig:2}
+    \caption{An asteroid involved with a dim background object. }\label{fig:3}
 \end{figure}
-
-%\begin{figure}[!htb]
-%    \centering
-%    \includegraphics[height=7cm]{graphs/a_e_i_occur.png}
-%    \caption{Inclination and eccentricity as a function of semi-major axis of all objects. Colours represents number of observations (occurrences) used in the analysis}\label{fig:2}
-%\end{figure}
-%
-%\begin{figure}[!htb]
- %   \centering
-%    \includegraphics[height=4cm]{images/background_gal.jpeg}
-%    \caption{An asteroid involved with a dim background object. }\label{fig:3}
-%\end{figure}
 
 
 \end{document}
