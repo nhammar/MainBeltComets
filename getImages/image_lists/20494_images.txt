@@ -1,1 +1,0 @@
-    Object      Image   Exp_time               RA              DEC             time       filter
