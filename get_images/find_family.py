@@ -64,7 +64,7 @@ def find_family_members(familyname):
     table = r.content
     table_lines = table.split('\n')
 
-    print "----- Searching for obects of in family {} -----".format(familyname)
+    print "----- Searching for objects of in family {} -----".format(familyname)
 
     asteroid_list = []
     for line in table_lines[1:len(table_lines) - 1]:

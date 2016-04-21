@@ -11,21 +11,14 @@ import math
 import pandas as pd
 from astropy.coordinates import SkyCoord
 import sys
-from get_images import get_image_info
+from get_image_lists import get_member_info
 import get_stamps
-
-sys.path.append('User/admin/Desktop/OSSOS/MOP/src/ossos-pipeline/ossos')
-from ossos import daophot
-from ossos import storage
-from ossos import wcs
-
-sys.path.append('User/admin/Desktop/OSSOS/MOP/src/ossos-pipeline/planning')
-from planning.plotting.horizons import batch
+from ossos import daophot, storage, wcs, horizons
 
 pd.set_option('display.max_columns', 500)
 client = vos.Client()
 
-_VOS_DIR = 'vos:kawebb/postage_stamps/'
+_VOS_DIR = 'vos:OSSOS/ActiveAsteroids/postage_stamps/'
 _DIR_PATH_BASE = os.path.dirname(os.path.abspath(__file__))
 _STAMPS_DIR = '{}/postage_stamps'.format(_DIR_PATH_BASE)
 _IMAGE_LISTS = '{}/image_lists'.format(_DIR_PATH_BASE)

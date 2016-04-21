@@ -26,9 +26,9 @@ def main():
 
 def process(stamp):
 
-    objnum, expnum, exptime, zpt, pixscale, ra_rate, dec_rate, amplitude, psfrad, psf_image = mkpsf.make_iraf_psf(stamp)
-    if psf_image != None:
-        mktrp.make_trippy_profile(objnum, expnum, exptime, zpt, pixscale, ra_rate, dec_rate, amplitude, psfrad, psf_image)
+    psf_image = mkpsf.make_iraf_psf(stamp)
+    if psf_image != None:        
+        mktrp.make_trippy_profile(psf_image, stamp)
     else:
         pass
 

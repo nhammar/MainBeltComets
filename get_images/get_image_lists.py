@@ -105,11 +105,11 @@ def get_member_info(object_name, filtertype='r', imagetype='p'):
         mjds = []
         for line in objects:
             mjds.append(float(line['MJD'])) #Have to convert elements to floats
-        start_time = Time(min(mjds), format='mjd')
-        stop_time = Time(max(mjds), format='mjd')
+        start_time = Time(min(mjds), format='mjd') - 1.0*units.minute
+        stop_time = Time(max(mjds), format='mjd') + 1.0*units.minute
 
         #Query Horizons once to establish position values over given time period, then give it a current time which it interpolates withl
-        body = horizons.Body(object_name, start_time=start_time, stop_time=stop_time, step_size=5 * units.minute)
+        body = horizons.Body(object_name, start_time=start_time, stop_time=stop_time, step_size=10 * units.minute)
 
         for line in objects:
             with open(output, 'a') as outfile:

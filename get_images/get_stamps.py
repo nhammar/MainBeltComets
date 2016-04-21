@@ -11,10 +11,7 @@ import numpy as np
 from astropy.table import Table, Column
 import pandas as pd
 import sys
-from ossos import storage
-from ossos import coding
-from ossos import mpc
-from ossos import util
+from ossos import storage, coding, mpc, util
 from astropy.coordinates import SkyCoord
 from astropy import units
 import config
